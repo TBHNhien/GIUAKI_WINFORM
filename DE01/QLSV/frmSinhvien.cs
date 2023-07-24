@@ -189,5 +189,40 @@ namespace QLSV
             if (result == DialogResult.Yes)
                 this.Close();
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            Model1 context = new Model1();
+            SINHVIEN dbSearch = context.SINHVIENs.FirstOrDefault(p => p.MASV.ToString() == txbSearch.Text.ToString());
+
+            if (dbSearch != null)
+            {
+                // Tìm dòng tương ứng trong DataGridView
+                foreach (DataGridViewRow row in dtgvStudent.Rows)
+                {
+                    if (row.Cells["MASV"].Value.ToString() == txbSearch.Text)
+                    {
+                        // Chọn dòng tương ứng
+                        row.Selected = true;
+
+                        // Di chuyển tới dòng đó (nếu cần thiết)
+                        dtgvStudent.CurrentCell = row.Cells[0];
+
+                        int chisodong = row.Index;
+
+
+                        DataGridViewRow selectedRow = dtgvStudent.Rows[chisodong];
+
+                        txb_MSSV.Text = selectedRow.Cells[0].Value.ToString();
+                        txb_Name.Text = selectedRow.Cells[1].Value.ToString();
+
+                        dtpNgaySinh.Text = selectedRow.Cells[2].Value.ToString();
+                        cmb_Falculty.Text = selectedRow.Cells[3].Value.ToString();
+
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
