@@ -71,6 +71,8 @@ namespace QLSV
         #region Event
         private void FQLSV_Load(object sender, EventArgs e)
         {
+            btnLuu.Enabled = false;
+            btnKLuu.Enabled = false;
             try
             {
                 Model1 context = new Model1();
